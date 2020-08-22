@@ -767,8 +767,9 @@ class Command extends EventEmitter {
       default:
         throw new Error(`unexpected parse option { from: '${parseOptions.from}' }`);
     }
-    if (!this._scriptPath && process.mainModule) {
-      this._scriptPath = process.mainModule.filename;
+
+    if (!this._scriptPath && process[0] === __filename) {
+      this._scriptPath = __filename;
     }
 
     // Guess name, used in usage in help.
